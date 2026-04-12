@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Play from a list of sounds using next, previous, and random
@@ -15,6 +16,9 @@ public class PlaySoundsFromList : MonoBehaviour
 
     private AudioSource audioSource = null;
     private int index = 0;
+
+    [Header("Events")]
+    public UnityEvent OnTrackChanged;
 
     private void Awake()
     {
@@ -45,9 +49,12 @@ public class PlaySoundsFromList : MonoBehaviour
         PlayClip();
     }
 
-    public void PauseClip()
+    public void TogglePause()
     {
-        audioSource.Pause();
+        if (audioSource.isPlaying)
+            audioSource.Pause();
+        else
+            audioSource.Play();
     }
 
     public void StopClip()
@@ -64,11 +71,17 @@ public class PlaySoundsFromList : MonoBehaviour
     {
         audioSource.clip = audioClips[Mathf.Abs(index)];
         audioSource.Play();
+        OnTrackChanged?.Invoke();
     }
 
     private void OnValidate()
     {
         AudioSource audioSource = GetComponent<AudioSource>();
         audioSource.loop = shouldLoop;
+    }
+
+    public int GetCurrentTrackIndex()
+    {
+        return index;
     }
 }
