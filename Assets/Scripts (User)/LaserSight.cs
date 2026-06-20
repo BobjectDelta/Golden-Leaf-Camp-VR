@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LaserSight : MonoBehaviour
 {
@@ -15,9 +16,12 @@ public class LaserSight : MonoBehaviour
     private float _maxDistance = 10f;
 
     private bool _laserEnabled = true;
+    private bool _laserAllowed = false;
     private RaycastHit _raycastHit;
 
     LineRenderer _lineRenderer;
+
+    public UnityEvent OnLaserToggled;
 
     private void Awake()
     {
@@ -67,8 +71,17 @@ public class LaserSight : MonoBehaviour
         }*/
     }
 
-    public void ToggleLaser()
+    public void TryToggleLaser()
     {
-        _laserEnabled = !_laserEnabled;
+        if (_laserAllowed)
+        {
+            _laserEnabled = !_laserEnabled;
+            OnLaserToggled?.Invoke();
+        }
+    }
+
+    public void ToggleLaserActivation(bool isAllowed)
+    {
+        _laserAllowed = isAllowed;
     }
 }
