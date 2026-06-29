@@ -33,7 +33,7 @@ public class PlaySoundsFromList : MonoBehaviour
 
     public void PreviousClip()
     {
-        index = --index % audioClips.Count;
+        index = Mathf.Abs(--index % audioClips.Count);
         PlayClip();
     }
 
