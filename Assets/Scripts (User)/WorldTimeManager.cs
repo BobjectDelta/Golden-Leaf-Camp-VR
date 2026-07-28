@@ -1,20 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
 
 public class WorldTimeManager : MonoBehaviour
 {
     [SerializeField]
-    private float _currentTime = 0;
+    private int _currentTime = 0;
+    [SerializeField, Min(1)]
+    private int _dayLength = 300;
     [SerializeField]
-    private float _timeFlowRate = 0.005f;
-    [SerializeField, Range(0, 1)]
-    private float _sunriseTime = 0f;
-    [SerializeField, Range(0, 1)]
-    private float _sunsetTime = 0.5f;
+    private int _timeFlowRate = 1;
+    [SerializeField]
+    private int _sunriseTime = 0;
+    [SerializeField]
+    private int _sunsetTime;
+
+    public int TimeFlowRate => _timeFlowRate;
+    public int DayLength => _dayLength;
 
     [SerializeField]
     private bool _isTimePaused = false;
@@ -46,6 +49,12 @@ public class WorldTimeManager : MonoBehaviour
         StartTimeFlow();
     }
 
+    private void OnValidate()
+    {
+        _sunriseTime = Mathf.Clamp(_sunriseTime, 0, _dayLength);
+        _sunsetTime = Mathf.Clamp(_sunsetTime, 0, _dayLength);
+    }
+
     public void ToggleTimePause()
     {
         if (_isTimePaused)
@@ -75,8 +84,12 @@ public class WorldTimeManager : MonoBehaviour
     {
         while (!_isTimePaused)
         {
-            _currentTime = Mathf.Repeat(_currentTime + _timeFlowRate, 1f);
-            Debug.Log(_timeOfDay);
+            _currentTime += _timeFlowRate;
+
+            if (_currentTime >= DayLength)
+                _currentTime = 0;
+
+            //Debug.Log(_timeOfDay);
 
             if (_currentTime >= _sunriseTime && _currentTime <= _sunsetTime && _timeOfDay == TimeOfDay.Night)
             {

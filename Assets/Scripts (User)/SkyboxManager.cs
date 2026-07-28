@@ -9,7 +9,7 @@ public class SkyboxManager : MonoBehaviour, IWorldTimeListener
     [SerializeField]
     private Material _nightSkybox;
     [SerializeField]
-    private Material _currentSkybox;
+    private Material _currentSkybox = null;
     [SerializeField]
     private int _currentSkyboxIndex = 0;
 
@@ -19,13 +19,15 @@ public class SkyboxManager : MonoBehaviour, IWorldTimeListener
     private float _skyboxBlendDuration = 1.0f;
 
     [SerializeField]
-    private float _eveningTriggerTime = 0.7f;
+    private int _eveningTriggerTime;
+    [SerializeField]
+    private int _morningTriggerTime;
 
     private Coroutine _skyboxSwitchingRoutine = null;
 
     private void Awake()
     {
-        WorldTimeManager.Instance.Register(this);   
+        WorldTimeManager.Instance.Register(this);
     }
 
     private void Start()
@@ -34,11 +36,11 @@ public class SkyboxManager : MonoBehaviour, IWorldTimeListener
         RenderSettings.skybox = _currentSkybox;
     }
 
-    public virtual void OnTimeChanged(float time) // example of using WorldTime listeners
+    public virtual void OnTimeChanged(int time) // example of using WorldTime listeners
     {
-        if (time == _eveningTriggerTime)
+        if (time == _eveningTriggerTime || time == _morningTriggerTime)
         {
-            Debug.Log("Triggering evening change!");
+            Debug.Log("Triggering morning/evening change!");
             SwitchToNextSkybox();
         }
     }
@@ -49,8 +51,6 @@ public class SkyboxManager : MonoBehaviour, IWorldTimeListener
 
         if (_skyboxSwitchingRoutine == null)
             _skyboxSwitchingRoutine = StartCoroutine(SwitchSkybox());
-
-        Debug.Log("Skybox changed!");
     }
 
     IEnumerator SwitchSkybox()

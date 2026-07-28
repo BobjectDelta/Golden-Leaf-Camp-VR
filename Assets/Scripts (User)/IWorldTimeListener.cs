@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IWorldTimeListener
 {
-    public void OnTimeChanged(float currentTime)
+    public void OnTimeChanged(int currentTime)
     {
 
     }

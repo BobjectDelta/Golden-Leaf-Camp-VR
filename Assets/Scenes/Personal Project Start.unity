@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.8679245, g: 0.6945643, b: 0.48718405, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: cb879a436a7692845a0f2ed7883aa098, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 19cd9dafe0dfb49489cd72d9d3870b4d, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -6726,6 +6726,7 @@ GameObject:
   - component: {fileID: 203844588}
   - component: {fileID: 203844587}
   - component: {fileID: 203844590}
+  - component: {fileID: 203844591}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -6815,7 +6816,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 2
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -6855,7 +6856,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DaylightRotation
   _daylightTransform: {fileID: 203844589}
-  _rotationSpeed: 1
+  _currentAngle: 0
+  _targetAngle: 0
+  _angleDelta: 0
+--- !u!114 &203844591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203844586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f40030af0f13d1a4cba91ed5b35d5a58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DaylightBrightnessController
+  _daylight: {fileID: 203844588}
+  _targetBrightness: 0
+  _switchDuration: 15
+  _nightSwitchTriggerTime: 165
+  _daySwitchTriggerTime: 355
 --- !u!1 &204235798
 GameObject:
   m_ObjectHideFlags: 0
@@ -21133,9 +21153,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorldTimeManager
   _currentTime: 0
-  _timeFlowRate: 0.03
-  _sunriseTime: 0.201
-  _sunsetTime: 0.849
+  _dayLength: 360
+  _timeFlowRate: 5
+  _sunriseTime: 355
+  _sunsetTime: 180
   _isTimePaused: 0
   OnSunrise:
     m_PersistentCalls:
@@ -41402,10 +41423,13 @@ MonoBehaviour:
   _currentSkybox: {fileID: 0}
   _currentSkyboxIndex: 0
   _skyboxMaterials:
+  - {fileID: 2100000, guid: 19cd9dafe0dfb49489cd72d9d3870b4d, type: 2}
   - {fileID: 2100000, guid: cb879a436a7692845a0f2ed7883aa098, type: 2}
+  - {fileID: 2100000, guid: 19cd9dafe0dfb49489cd72d9d3870b4d, type: 2}
   - {fileID: 2100000, guid: aba2d0ab67d2a18428ff0a4efe5bfc6e, type: 2}
-  _skyboxBlendDuration: 2
-  _eveningTriggerTime: 0.7
+  _skyboxBlendDuration: 10
+  _eveningTriggerTime: 160
+  _morningTriggerTime: 20
 --- !u!1 &1743022814
 GameObject:
   m_ObjectHideFlags: 0
