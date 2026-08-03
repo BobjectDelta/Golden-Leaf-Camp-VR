@@ -13,6 +13,7 @@ public class Food : MonoBehaviour
     [SerializeField] 
     float _cookingTime = 0;
     private float _timeToBurn;
+
     private Coroutine _cookRoutine;
 
     public UnityEvent OnCooked;

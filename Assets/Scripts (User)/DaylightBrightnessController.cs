@@ -29,7 +29,7 @@ public class DaylightBrightnessController : MonoBehaviour, IWorldTimeListener
 
     public void TrySwitchBrightness()
     {
-        Debug.Log("Trying to switch light brightness!");
+        //Debug.Log("Trying to switch light brightness!");
         if (_brightnessSwitchRoutine == null)
             _brightnessSwitchRoutine = StartCoroutine(SwitchBrightness());
     }

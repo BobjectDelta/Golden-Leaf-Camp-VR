@@ -105,7 +105,7 @@ public class WorldTimeManager : MonoBehaviour
             foreach (IWorldTimeListener listener in _worldTimeListeners)
                 listener.OnTimeChanged(_currentTime);
 
-            Debug.Log("Current time: " + _currentTime);
+            //Debug.Log("Current time: " + _currentTime);
 
             yield return new WaitForSeconds(1);
         }

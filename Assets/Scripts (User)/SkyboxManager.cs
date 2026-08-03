@@ -40,14 +40,14 @@ public class SkyboxManager : MonoBehaviour, IWorldTimeListener
     {
         if (time == _eveningTriggerTime || time == _morningTriggerTime)
         {
-            Debug.Log("Triggering morning/evening change!");
+            //Debug.Log("Triggering morning/evening change!");
             SwitchToNextSkybox();
         }
     }
 
     public void SwitchToNextSkybox()
     {
-        Debug.Log("Trying to change Skybox...");
+        //Debug.Log("Trying to change Skybox...");
 
         if (_skyboxSwitchingRoutine == null)
             _skyboxSwitchingRoutine = StartCoroutine(SwitchSkybox());
