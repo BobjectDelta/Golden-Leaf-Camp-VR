@@ -89,7 +89,7 @@ public class WorldTimeManager : MonoBehaviour
             if (_currentTime >= DayLength)
                 _currentTime = 0;
 
-            //Debug.Log(_timeOfDay);
+            Debug.Log(_timeOfDay);
 
             if (_currentTime >= _sunriseTime && _currentTime <= _sunsetTime && _timeOfDay == TimeOfDay.Night)
             {

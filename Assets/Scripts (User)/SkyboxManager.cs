@@ -5,10 +5,6 @@ using UnityEngine;
 public class SkyboxManager : MonoBehaviour, IWorldTimeListener
 {
     [SerializeField]
-    private Material _daySkybox;
-    [SerializeField]
-    private Material _nightSkybox;
-    [SerializeField]
     private Material _currentSkybox = null;
     [SerializeField]
     private int _currentSkyboxIndex = 0;
